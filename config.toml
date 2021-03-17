@@ -1,4 +1,40 @@
+title = "Sun's Blog"
 baseURL = "https://blog.sunhz.cn/"
-languageCode = "zh-cn"
-title = "Home Page - Sun 7 | 孙恒哲"
-theme = "ananke"
+languageCode = "zh-cmn"
+hasCJKLanguage = true
+enableEmoji = true
+theme = ["ananke"]
+
+SectionPagesMenu = "main"
+Paginate = 3 # this is set low for demonstrating with dummy content. Set to a higher number
+googleAnalytics = ""
+enableRobotsTXT = true
+# comments
+disqusShortname = "sunhengzhe"
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[params]
+  favicon = ""
+  site_logo = ""
+  commentoEnable = true
+  description = "孙恒哲的博客"
+  facebook = ""
+  twitter = ""
+  instagram = ""
+  youtube = ""
+  github = "https://github.com/sunhengzhe"
+  gitlab = ""
+  linkedin = ""
+  mastodon = ""
+  slack = ""
+  stackoverflow = ""
+  rss = ""
+  # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
+  background_color_class = "bg-black"
+  featured_image = "/images/sun.jpg"
+  recent_posts_number = 2
+  custom_css = ["css/ananke-custom.css"]
