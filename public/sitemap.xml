@@ -3,34 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.sunhz.cn/posts/</loc>
+    <loc>/posts/</loc>
     <lastmod>2016-12-19T11:02:07+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://blog.sunhz.cn/</loc>
+    <loc>/</loc>
     <lastmod>2016-12-19T11:02:07+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://blog.sunhz.cn/posts/genetic-algorithm/</loc>
+    <loc>/posts/genetic-algorithm/</loc>
     <lastmod>2016-12-19T11:02:07+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://blog.sunhz.cn/categories/</loc>
+    <loc>/categories/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://blog.sunhz.cn/tags/</loc>
+    <loc>/tags/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
