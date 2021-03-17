@@ -1,0 +1,4 @@
+baseURL = "https://blog.sunhz.cn/"
+languageCode = "zh-cn"
+title = "Home Page - Sun 7 | 孙恒哲"
+theme = "ananke"
