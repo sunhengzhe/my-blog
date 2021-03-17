@@ -1,5 +1,5 @@
 title = "Sun's Blog"
-baseURL = "https://blog.sunhz.cn/"
+baseURL = ""
 languageCode = "zh-cmn"
 hasCJKLanguage = true
 enableEmoji = true
