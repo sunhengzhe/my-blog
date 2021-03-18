@@ -3,7 +3,7 @@ baseURL = ""
 languageCode = "zh-cmn"
 hasCJKLanguage = true
 enableEmoji = true
-theme = ["ananke"]
+theme = "ananke"
 
 SectionPagesMenu = "main"
 Paginate = 6 # this is set low for demonstrating with dummy content. Set to a higher number

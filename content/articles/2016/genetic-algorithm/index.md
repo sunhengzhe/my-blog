@@ -2,6 +2,7 @@
 title: "遗传算法"
 date: 2016-12-19
 featured_image: "covers/gene.jpg"
+tags: ["算法"]
 ---
 
 遗传算法是一个很有意思的算法。
