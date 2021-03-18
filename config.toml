@@ -1,6 +1,7 @@
 title = "Sun's Blog"
 baseURL = ""
 languageCode = "zh-cmn"
+DefaultContentLanguage = "zh"
 hasCJKLanguage = true
 enableEmoji = true
 theme = "ananke"
@@ -35,3 +36,17 @@ enableRobotsTXT = true
   featured_image = "/covers/eclipse.jpg"
   recent_posts_number = 3
   custom_css = ["css/ananke-custom.css"]
+  show_reading_time = true
+
+# Valine.
+# You can get your appid and appkey from https://leancloud.cn
+# more info please open https://valine.js.org
+[params.valine]
+  enable = true
+  appId = '1LyGDYVjwRXPreaCWYEHmSBH-gzGzoHsz'
+  appKey = '25EgCU8EbGo0vh3FigVCMpnh'
+  notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
+  verify = false # Verification code
+  avatar = 'mp'
+  placeholder = '想说点什么呢...'
+  visitor = true
