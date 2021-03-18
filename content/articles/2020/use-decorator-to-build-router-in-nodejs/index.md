@@ -10,7 +10,7 @@ Javascript 中的装饰器（Decorator）是我非常喜欢的一个特性，它
 
 比如，我们可以用如下方式定义 Controller：
 
-```js
+```ts
 @Controller('/cats')
 class CatsController {
   @Get()
@@ -39,7 +39,7 @@ class CatsController {
 
 它们分别可以标注到对应的位置：
 
-```js
+```ts
 @classDecorator // 类装饰器
 class Hero {
     @propertyDecorator // 属性装饰器
@@ -78,7 +78,7 @@ class Hero {
 
 这里以 Express 框架为例，我们实现对应的装饰器，让 Express 可以支持装饰器标注来添加路由，首先新建 `index.ts` 如下：
 
-```js
+```ts
 import * as express from 'express';
 import { Request, Response } from 'express';
 
@@ -100,7 +100,7 @@ app.listen(3000, () => {
 接下来实现 `@Controller` 装饰器，它是标注在控制器 **类** 上的，用来标注这个类是一个控制器类，并提供一个路由前缀作为参数。因为类装饰器第一个参数是类的构造函数，所以我们将该装饰器传入的前缀参数定义到构造函数的元数据中，key 为 `prefix`。
 
 
-```js
+```ts
 // Controller.ts
 export const Controller = (prefix: string = ''): ClassDecorator => {
   return (target: Function) => {
@@ -114,7 +114,7 @@ export const Controller = (prefix: string = ''): ClassDecorator => {
 
 我们首先定义一个元数据接口：
 
-```js
+```ts
 // RouteDefinition.ts
 export interface RouteDefinition {
   path: string;
@@ -125,7 +125,7 @@ export interface RouteDefinition {
 
 `@Get` 装饰器的实现如下：
 
-```js
+```ts
 // Get.ts
 import {RouteDefinition} from './RouteDefinition';
 
@@ -151,7 +151,7 @@ export const Get = (path: string): MethodDecorator => {
 
 最后，我们在 Express 的入口文件中，就可以取得所有的控制器，根据反射拿到所有的路由了。
 
-```js
+```ts
 import 'reflect-metadata';
 
 import * as express from 'express';

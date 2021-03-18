@@ -48,7 +48,7 @@
 
 
 
-<meta itemprop="keywords" content="" />
+<meta itemprop="keywords" content="Node.js," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="使用装饰器是如何构建 Nodejs 路由的"/>
 <meta name="twitter:description" content="Javascript 中的装饰器（Decorator）是我非常喜欢的一个特性，它可以很好地提高代码的复用性和自解释性。虽然它目前还处在建议征集的第二阶段，但在 TypeScript 里已经做为了一项实验性特性予以支持。"/>
@@ -78,8 +78,20 @@
         <ul class="pl0 mr3">
           
           <li class="list f5 f4-ns fw4 dib pr3">
-            <a class="hover-white no-underline white-90" href="/articles/" title="Articles page">
-              Articles
+            <a class="hover-white no-underline white-90" href="/articles/" title="文章 page">
+              文章
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/tags/" title="标签 page">
+              标签
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="关于 page">
+              关于
             </a>
           </li>
           
@@ -127,7 +139,7 @@
     <header class="mt4 w-100">
       <aside class="instapaper_ignoref b helvetica tracked">
           
-        ARTICLES
+        文章
       </aside>
       
 
@@ -166,19 +178,22 @@
 
       
       
+        <span class="f6 mv4 dib tracked"> - 3 minutes read</span>
+        <span class="f6 mv4 dib tracked"> - 1484 words</span>
+      
     </header>
     <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Javascript 中的装饰器（Decorator）是我非常喜欢的一个特性，它可以很好地提高代码的复用性和自解释性。虽然它目前还处在建议征集的第二阶段，但在 TypeScript 里已经做为了一项实验性特性予以支持。</p>
 <p>比如，我们可以用如下方式定义 Controller：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">Controller</span>(<span style="color:#e6db74">&#39;/cats&#39;</span>)
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CatsController</span> {
-  <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">Get</span>()
-  <span style="color:#a6e22e">findAll</span>()<span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;This action returns all cats&#39;</span>;
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#268bd2">@Controller</span>(<span style="color:#2aa198">&#39;/cats&#39;</span>)
+<span style="color:#268bd2">class</span> CatsController {
+  <span style="color:#268bd2">@Get</span>()
+  findAll()<span style="color:#719e07">:</span> <span style="color:#dc322f">string</span> {
+    <span style="color:#719e07">return</span> <span style="color:#2aa198">&#39;This action returns all cats&#39;</span>;
   }
 
-  <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#39;/:id&#39;</span>)
-  <span style="color:#a6e22e">findOne</span>()<span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;This action returns a specified cat&#39;</span>;
+  <span style="color:#268bd2">@Get</span>(<span style="color:#2aa198">&#39;/:id&#39;</span>)
+  findOne()<span style="color:#719e07">:</span> <span style="color:#dc322f">string</span> {
+    <span style="color:#719e07">return</span> <span style="color:#2aa198">&#39;This action returns a specified cat&#39;</span>;
   }
 }
 </code></pre></div><p>如果熟悉 Spring Boot，会觉得这样的定义非常亲切。我们使用了 <code>@Controller</code> 和 <code>@Get</code> 装饰器，表示调用 <code>/cats</code> 返回所有的猫，调用 <code>/cats/:id</code> 返回按 <code>id</code> 查找的猫。这样的定义形式让代码看上去可读性很强，也清爽多了。</p>
@@ -188,22 +203,22 @@
 <p>在此之前，我们先回顾一下装饰器的用法。装饰器可以被附加到 <a href="https://www.tslang.cn/docs/handbook/decorators.html#class-decorators">类声明</a>（Class），<a href="https://www.tslang.cn/docs/handbook/decorators.html#property-decorators">属性</a>（Property）， <a href="https://www.tslang.cn/docs/handbook/decorators.html#accessor-decorators">访问符</a>（Accessor），<a href="https://www.tslang.cn/docs/handbook/decorators.html#method-decorators">方法</a>（Method）或 <a href="https://www.tslang.cn/docs/handbook/decorators.html#parameter-decorators">参数</a>(Parameter) 上，对应的签名如下（其中访问符和属性装饰器签名相同）：</p>
 <p><img src="./assets/img1.png" alt="decorator usage"></p>
 <p>它们分别可以标注到对应的位置：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">classDecorator</span> <span style="color:#75715e">// 类装饰器
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hero</span> {
-    <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">propertyDecorator</span> <span style="color:#75715e">// 属性装饰器
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#268bd2">@classDecorator</span> <span style="color:#586e75">// 类装饰器
+</span><span style="color:#586e75"></span><span style="color:#268bd2">class</span> Hero {
+    <span style="color:#268bd2">@propertyDecorator</span> <span style="color:#586e75">// 属性装饰器
+</span><span style="color:#586e75"></span>    name: <span style="color:#dc322f">string</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;&#34;</span>;
 
-    <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">propertyDecorator</span>
-    <span style="color:#a6e22e">_hp</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+    <span style="color:#268bd2">@propertyDecorator</span>
+    _hp: <span style="color:#dc322f">number</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">100</span>;
 
-    <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">methodDecorator</span> <span style="color:#75715e">// 方法装饰器
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">attack</span>(<span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">paramDecorator</span> <span style="color:#a6e22e">enemy</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Enermy</span> <span style="color:#75715e">/* 参数装饰器 */</span>) {
+    <span style="color:#268bd2">@methodDecorator</span> <span style="color:#586e75">// 方法装饰器
+</span><span style="color:#586e75"></span>    attack(<span style="color:#268bd2">@paramDecorator</span> enemy: <span style="color:#dc322f">Enermy</span> <span style="color:#586e75">/* 参数装饰器 */</span>) {
 
     }
 
-    <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">propertyDecorator</span>  <span style="color:#75715e">// 访问符装饰器
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">hp</span>() {
-        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_hp</span>;
+    <span style="color:#268bd2">@propertyDecorator</span>  <span style="color:#586e75">// 访问符装饰器
+</span><span style="color:#586e75"></span>    get hp() {
+        <span style="color:#719e07">return</span> <span style="color:#719e07">this</span>._hp;
     }
 }
 </code></pre></div><p>装饰器被调用时，第一个参数一般要么能拿到类的构造函数，要么能拿到类的原型对象，利用这个参数可以对类或者原型对象进行修改。</p>
@@ -215,89 +230,89 @@
 <p>但我们还需使控制器可以运行，这时就可以利用反射，拿到装饰器传入的参数和对应的请求方法，构造出对应的路由。</p>
 <h2 id="实现">实现</h2>
 <p>这里以 Express 框架为例，我们实现对应的装饰器，让 Express 可以支持装饰器标注来添加路由，首先新建 <code>index.ts</code> 如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">express</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;express&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Request</span>, <span style="color:#a6e22e">Response</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;express&#39;</span>;
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#268bd2">import</span> <span style="color:#719e07">*</span> <span style="color:#268bd2">as</span> express from <span style="color:#2aa198">&#39;express&#39;</span>;
+<span style="color:#268bd2">import</span> { Request, Response } from <span style="color:#2aa198">&#39;express&#39;</span>;
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>();
+<span style="color:#268bd2">const</span> app <span style="color:#719e07">=</span> express();
 
-<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/&#39;</span>, (<span style="color:#a6e22e">req</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Request</span>, <span style="color:#a6e22e">res</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Response</span>) =&gt; {
-  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;Hello World!&#39;</span>);
+app.get(<span style="color:#2aa198">&#39;/&#39;</span>, (req: <span style="color:#dc322f">Request</span>, res: <span style="color:#dc322f">Response</span>) <span style="color:#719e07">=&gt;</span> {
+  res.send(<span style="color:#2aa198">&#39;Hello World!&#39;</span>);
 });
 
-<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">3000</span>, () =&gt; {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Started express on port 3000&#39;</span>);
+app.listen(<span style="color:#2aa198">3000</span>, () <span style="color:#719e07">=&gt;</span> {
+  console.log(<span style="color:#2aa198">&#39;Started express on port 3000&#39;</span>);
 });
 </code></pre></div><p>这是一个基础的 Express 入口文件。</p>
 <h3 id="controller-装饰器"><code>@Controller</code> 装饰器</h3>
 <p>接下来实现 <code>@Controller</code> 装饰器，它是标注在控制器 <strong>类</strong> 上的，用来标注这个类是一个控制器类，并提供一个路由前缀作为参数。因为类装饰器第一个参数是类的构造函数，所以我们将该装饰器传入的前缀参数定义到构造函数的元数据中，key 为 <code>prefix</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Controller.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Controller</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">prefix</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">ClassDecorator</span> =&gt; {
-  <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">target</span><span style="color:#f92672">:</span> Function) =&gt; {
-    <span style="color:#a6e22e">Reflect</span>.<span style="color:#a6e22e">defineMetadata</span>(<span style="color:#e6db74">&#39;prefix&#39;</span>, <span style="color:#a6e22e">prefix</span>, <span style="color:#a6e22e">target</span>);
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#586e75">// Controller.ts
+</span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">const</span> Controller <span style="color:#719e07">=</span> (prefix: <span style="color:#dc322f">string</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;&#39;</span>)<span style="color:#719e07">:</span> ClassDecorator <span style="color:#719e07">=&gt;</span> {
+  <span style="color:#719e07">return</span> (target: <span style="color:#dc322f">Function</span>) <span style="color:#719e07">=&gt;</span> {
+    Reflect.defineMetadata(<span style="color:#2aa198">&#39;prefix&#39;</span>, prefix, target);
   };
 };
 </code></pre></div><h3 id="get-装饰器"><code>@Get</code> 装饰器</h3>
 <p><code>@Get</code>、<code>@Post</code> 等作为请求方法的装饰器实现原理都是相似的，这里以 <code>@Get</code> 方法举例，这个装饰器应该标识请求的方式和请求的路由，另外保存被标注的函数，因为这个函数将被作为路由函数调用。</p>
 <p>我们首先定义一个元数据接口：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// RouteDefinition.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">RouteDefinition</span> {
-  <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>;
-  <span style="color:#a6e22e">requestMethod</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;get&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;post&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;delete&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;options&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;put&#39;</span>;
-  <span style="color:#a6e22e">methodName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>;
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#586e75">// RouteDefinition.ts
+</span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> RouteDefinition {
+  path: <span style="color:#dc322f">string</span>;
+  requestMethod<span style="color:#719e07">:</span> <span style="color:#2aa198">&#39;get&#39;</span> <span style="color:#719e07">|</span> <span style="color:#2aa198">&#39;post&#39;</span> <span style="color:#719e07">|</span> <span style="color:#2aa198">&#39;delete&#39;</span> <span style="color:#719e07">|</span> <span style="color:#2aa198">&#39;options&#39;</span> <span style="color:#719e07">|</span> <span style="color:#2aa198">&#39;put&#39;</span>;
+  methodName: <span style="color:#dc322f">string</span>;
 }
 </code></pre></div><p><code>@Get</code> 装饰器的实现如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Get.ts
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">RouteDefinition</span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./RouteDefinition&#39;</span>;
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#586e75">// Get.ts
+</span><span style="color:#586e75"></span><span style="color:#268bd2">import</span> {RouteDefinition} from <span style="color:#2aa198">&#39;./RouteDefinition&#39;</span>;
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Get</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">MethodDecorator</span> =&gt; {
-  <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">propertyKey</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> =&gt; {
-    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">Reflect</span>.<span style="color:#a6e22e">hasMetadata</span>(<span style="color:#e6db74">&#39;routes&#39;</span>, <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">constructor</span>)) {
-      <span style="color:#a6e22e">Reflect</span>.<span style="color:#a6e22e">defineMetadata</span>(<span style="color:#e6db74">&#39;routes&#39;</span>, [], <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">constructor</span>);
+<span style="color:#268bd2">export</span> <span style="color:#268bd2">const</span> Get <span style="color:#719e07">=</span> (path: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> MethodDecorator <span style="color:#719e07">=&gt;</span> {
+  <span style="color:#719e07">return</span> (target, propertyKey: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> <span style="color:#719e07">void</span> <span style="color:#719e07">=&gt;</span> {
+    <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>Reflect.hasMetadata(<span style="color:#2aa198">&#39;routes&#39;</span>, target.<span style="color:#268bd2">constructor</span>)) {
+      Reflect.defineMetadata(<span style="color:#2aa198">&#39;routes&#39;</span>, [], target.<span style="color:#268bd2">constructor</span>);
     }
 
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Reflect</span>.<span style="color:#a6e22e">getMetadata</span>(<span style="color:#e6db74">&#39;routes&#39;</span>, <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">constructor</span>) <span style="color:#a6e22e">as</span> Array<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">RouteDefinition</span><span style="color:#f92672">&gt;</span>;
+    <span style="color:#268bd2">const</span> routes <span style="color:#719e07">=</span> Reflect.getMetadata(<span style="color:#2aa198">&#39;routes&#39;</span>, target.<span style="color:#268bd2">constructor</span>) <span style="color:#268bd2">as</span> <span style="color:#b58900">Array</span>&lt;<span style="color:#268bd2">RouteDefinition</span>&gt;;
 
-    <span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">push</span>({
-      <span style="color:#a6e22e">requestMethod</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;get&#39;</span>,
-      <span style="color:#a6e22e">path</span>,
-      <span style="color:#a6e22e">methodName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">propertyKey</span>
+    routes.push({
+      requestMethod<span style="color:#719e07">:</span> <span style="color:#2aa198">&#39;get&#39;</span>,
+      path,
+      methodName: <span style="color:#dc322f">propertyKey</span>
     });
-    <span style="color:#a6e22e">Reflect</span>.<span style="color:#a6e22e">defineMetadata</span>(<span style="color:#e6db74">&#39;routes&#39;</span>, <span style="color:#a6e22e">routes</span>, <span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">constructor</span>);
+    Reflect.defineMetadata(<span style="color:#2aa198">&#39;routes&#39;</span>, routes, target.<span style="color:#268bd2">constructor</span>);
   };
 };
 </code></pre></div><p><code>@Get</code> 装饰器是标注在方法上的，所以第一个参数是类的原型对象，我们这里还是根据它再获取到类的构造函数，在元数据中添加一个 <code>routes</code> 数据，用来保存这个控制器的所有路由。</p>
 <p>最后，我们在 Express 的入口文件中，就可以取得所有的控制器，根据反射拿到所有的路由了。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#39;reflect-metadata&#39;</span>;
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#268bd2">import</span> <span style="color:#2aa198">&#39;reflect-metadata&#39;</span>;
 
-<span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">express</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;express&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Request</span>, <span style="color:#a6e22e">Response</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;express&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">CatsController</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./CatsController&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">RouteDefinition</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./RouteDefinition&#39;</span>;
+<span style="color:#268bd2">import</span> <span style="color:#719e07">*</span> <span style="color:#268bd2">as</span> express from <span style="color:#2aa198">&#39;express&#39;</span>;
+<span style="color:#268bd2">import</span> { Request, Response } from <span style="color:#2aa198">&#39;express&#39;</span>;
+<span style="color:#268bd2">import</span> CatsController from <span style="color:#2aa198">&#39;./CatsController&#39;</span>;
+<span style="color:#268bd2">import</span> { RouteDefinition } from <span style="color:#2aa198">&#39;./RouteDefinition&#39;</span>;
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>();
+<span style="color:#268bd2">const</span> app <span style="color:#719e07">=</span> express();
 
-<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/&#39;</span>, (<span style="color:#a6e22e">req</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Request</span>, <span style="color:#a6e22e">res</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Response</span>) =&gt; {
-  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;Hello there!&#39;</span>);
+app.get(<span style="color:#2aa198">&#39;/&#39;</span>, (req: <span style="color:#dc322f">Request</span>, res: <span style="color:#dc322f">Response</span>) <span style="color:#719e07">=&gt;</span> {
+  res.send(<span style="color:#2aa198">&#39;Hello there!&#39;</span>);
 });
 
-<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">3000</span>, () =&gt; {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Started express on port 3000&#39;</span>);
+app.listen(<span style="color:#2aa198">3000</span>, () <span style="color:#719e07">=&gt;</span> {
+  console.log(<span style="color:#2aa198">&#39;Started express on port 3000&#39;</span>);
 });
 
-<span style="color:#75715e">// 构造路由
-</span><span style="color:#75715e"></span>[
-  <span style="color:#a6e22e">CatsController</span>
-].<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">controller</span> =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">instance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">controller</span>();
-  <span style="color:#75715e">// 获取 prefix
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prefix</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Reflect</span>.<span style="color:#a6e22e">getMetadata</span>(<span style="color:#e6db74">&#39;prefix&#39;</span>, <span style="color:#a6e22e">controller</span>);
-  <span style="color:#75715e">// 获取 routes
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span><span style="color:#f92672">:</span> Array<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">RouteDefinition</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Reflect</span>.<span style="color:#a6e22e">getMetadata</span>(<span style="color:#e6db74">&#39;routes&#39;</span>, <span style="color:#a6e22e">controller</span>);
+<span style="color:#586e75">// 构造路由
+</span><span style="color:#586e75"></span>[
+  CatsController
+].forEach(controller <span style="color:#719e07">=&gt;</span> {
+  <span style="color:#268bd2">const</span> instance <span style="color:#719e07">=</span> <span style="color:#719e07">new</span> controller();
+  <span style="color:#586e75">// 获取 prefix
+</span><span style="color:#586e75"></span>  <span style="color:#268bd2">const</span> prefix <span style="color:#719e07">=</span> Reflect.getMetadata(<span style="color:#2aa198">&#39;prefix&#39;</span>, controller);
+  <span style="color:#586e75">// 获取 routes
+</span><span style="color:#586e75"></span>  <span style="color:#268bd2">const</span> routes: <span style="color:#dc322f">Array</span>&lt;<span style="color:#268bd2">RouteDefinition</span>&gt; <span style="color:#719e07">=</span> Reflect.getMetadata(<span style="color:#2aa198">&#39;routes&#39;</span>, controller);
 
-  <span style="color:#a6e22e">routes</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">route</span> =&gt; {
-    <span style="color:#75715e">// 添加 Express 路由
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">app</span>[<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">requestMethod</span>](<span style="color:#a6e22e">prefix</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">path</span>, (<span style="color:#a6e22e">req</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">express</span>.<span style="color:#a6e22e">Request</span>, <span style="color:#a6e22e">res</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">express</span>.<span style="color:#a6e22e">Response</span>) =&gt; {
-      <span style="color:#a6e22e">instance</span>[<span style="color:#a6e22e">route</span>.<span style="color:#a6e22e">methodName</span>](<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>);
+  routes.forEach(route <span style="color:#719e07">=&gt;</span> {
+    <span style="color:#586e75">// 添加 Express 路由
+</span><span style="color:#586e75"></span>    app[route.requestMethod](prefix <span style="color:#719e07">+</span> route.path, (req: <span style="color:#dc322f">express.Request</span>, res: <span style="color:#dc322f">express.Response</span>) <span style="color:#719e07">=&gt;</span> {
+      instance[route.methodName](req, res);
     });
   });
 });
@@ -307,10 +322,35 @@
 <li><a href="https://codeburst.io/decorate-your-code-with-typescript-decorators-5be4a4ffecb4">Decorate your code with TypeScript decorators</a></li>
 </ul><ul class="pa0">
   
+   <li class="list">
+     <a href="/tags/node.js" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">Node.js</a>
+   </li>
+  
 </ul>
 <div class="mt6 instapaper_ignoref">
       
       
+      
+  <span id="/articles/2020/use-decorator-to-build-router-in-nodejs/" class="leancloud_visitors" data-flag-title="使用装饰器是如何构建 Nodejs 路由的">
+    <span class="post-meta-item-text">文章阅读量 </span>
+    <span class="leancloud-visitors-count">-</span>
+    <p></p>
+  </span>
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: '1LyGDYVjwRXPreaCWYEHmSBH-gzGzoHsz',
+        appKey: '25EgCU8EbGo0vh3FigVCMpnh',
+        notify:  false ,
+        verify:  false ,
+        avatar:'mp',
+        placeholder: '说点什么呢...',
+        visitor:  true 
+    });
+  </script>
       </div>
     </div>
 

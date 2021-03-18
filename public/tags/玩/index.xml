@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>玩 on Sun&#39;s Blog</title>
+    <link>/tags/%E7%8E%A9/</link>
+    <description>Recent content in 玩 on Sun&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cmn</language>
+    <lastBuildDate>Sun, 13 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/%E7%8E%A9/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>移动拼图游戏怎么玩</title>
+      <link>/articles/2018/how-to-play-image-puzzles/</link>
+      <pubDate>Sun, 13 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/articles/2018/how-to-play-image-puzzles/</guid>
+      <description>&lt;p&gt;前些天在 cube escape &lt;em&gt;（一款强烈推荐的解密游戏）&lt;/em&gt; 里面过了一个拼图的小谜题（虽然带了一定的运气成分）。拼完想到这类游戏一定是有某种技巧的，于是专门下了一个拼图的游戏……对照着知乎上的一些回答，终于知道这玩意怎么玩了！&lt;/p&gt;
+&lt;p&gt;要知道怎么还原这个拼图，我们先要从 2 * 2 的拼图说起。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -4,13 +4,27 @@
   
   <url>
     <loc>/articles/</loc>
-    <lastmod>2020-01-07T00:00:00+00:00</lastmod>
+    <lastmod>2017-03-23T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2021-03-18T13:02:38+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/</loc>
+    <lastmod>2021-03-18T13:02:38+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/node.js/</loc>
     <lastmod>2020-01-07T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -24,8 +38,22 @@
   </url>
   
   <url>
+    <loc>/tags/%E7%8E%A9/</loc>
+    <lastmod>2018-05-13T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>/articles/2018/how-to-play-image-puzzles/</loc>
     <lastmod>2018-05-13T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2016-12-19T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -44,7 +72,7 @@
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>/about/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
