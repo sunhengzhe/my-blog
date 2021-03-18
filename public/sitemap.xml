@@ -3,22 +3,36 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/posts/</loc>
-    <lastmod>2016-12-19T11:02:07+08:00</lastmod>
+    <loc>/articles/</loc>
+    <lastmod>2020-01-07T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2016-12-19T11:02:07+08:00</lastmod>
+    <lastmod>2020-01-07T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/posts/genetic-algorithm/</loc>
-    <lastmod>2016-12-19T11:02:07+08:00</lastmod>
+    <loc>/articles/2020/use-decorator-to-build-router-in-nodejs/</loc>
+    <lastmod>2020-01-07T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/articles/2018/how-to-play-image-puzzles/</loc>
+    <lastmod>2018-05-13T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>/articles/2016/genetic-algorithm/</loc>
+    <lastmod>2016-12-19T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
