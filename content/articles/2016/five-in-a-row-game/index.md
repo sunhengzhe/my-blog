@@ -17,7 +17,7 @@ draft: true
 
 以三子棋为例，AI 思考的过程就如同下面这课树一样，我们用圆圈代表玩家，叉号代表 AI，根节点是用户的落子。
 
-![](http://7xo08n.com1.z0.glb.clouddn.com/blog/five-in-a-row/01.png)
+![](http://cdn.sunhz.cn/blog/five-in-a-row/01.png)
 
 如果继续画下一层，那么下一层就是玩家下一步的落子，这也就是 AI 思考的层数又多了一层。
 
@@ -29,7 +29,7 @@ draft: true
 
 以三子棋为例，当玩家下在左上角的时候，我们考虑 AI 下在正中间时的得分。得分的计算方法是将棋面的空白地方用棋子填满，然后得出连成三个的个数有多少。（如果是五子棋，应该只需找出当前棋面上所有连子，然后根据每种连子的权重来计算得分）
 
-![](http://7xo08n.com1.z0.glb.clouddn.com/blog/five-in-a-row/04.png)
+![](http://cdn.sunhz.cn/blog/five-in-a-row/04.png)
 
 如图，玩家一共有 4 个成三，而 AI 一共有 5 个，所以总得分是 `5 - 4 = 1`。
 
@@ -48,7 +48,7 @@ draft: true
 
 以下图举例：
 
-![](http://7xo08n.com1.z0.glb.clouddn.com/blog/five-in-a-row/02.png)
+![](http://cdn.sunhz.cn/blog/five-in-a-row/02.png)
 
 因为我们是根据子节点的得分来倒推父节点的得分的，所以我们是用深度优先来遍历博弈树的，在上面这棵树中，遍历顺序是 `ABCDEFGHIJ`，赋值过程如下：
 
@@ -65,7 +65,7 @@ draft: true
 
 alpha-beta 剪枝的定义很绕口，但是原理很简单，还是以上面那课树为例：
 
-![](http://7xo08n.com1.z0.glb.clouddn.com/blog/five-in-a-row/03.png)
+![](http://cdn.sunhz.cn/blog/five-in-a-row/03.png)
 
 当遍历到 C 的时候，计算出 C 的得分是 `8`，因为 J 的得分是 C、F、I 之中最大的，所以此时可以得出 `J >= 8`。
 
