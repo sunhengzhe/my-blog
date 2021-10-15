@@ -1,0 +1,15 @@
+<footer class="{{ .Site.Params.background_color_class | default "bg-black" }} bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+    <div>
+      <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="{{ .Site.BaseURL }}" >
+        &copy; {{ with .Site.Copyright | default .Site.Title }} {{ . | safeHTML }} {{ now.Format "2006"}} {{ end }}
+      </a>
+
+      <a class="f6 fw4 hover-white no-underline white-70 dib-ns ph3" href="https://beian.miit.gov.cn" target="_blank" rel="nofollow" data-v-42d7edf3="">
+        京 ICP 备 2021009608 号 - 1
+      </a>
+    </div>
+
+    <div>{{ partial "social-follow.html" . }}</div>
+  </div>
+</footer>
