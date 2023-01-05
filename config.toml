@@ -1,4 +1,4 @@
-title = "Sun's Blog"
+title = "日拾"
 baseURL = "/"
 languageCode = "zh-cmn"
 DefaultContentLanguage = "zh"
@@ -19,7 +19,7 @@ enableRobotsTXT = true
 [params]
   favicon = "/images/favicon.ico"
   site_logo = ""
-  description = "孙恒哲的博客"
+  description = "Sun's Blog"
   facebook = ""
   twitter = ""
   instagram = ""
