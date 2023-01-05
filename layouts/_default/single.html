@@ -57,7 +57,7 @@
       {{ end }}
       {{- if .Site.Params.valine.enable -}}
         <!-- id 将作为查询条件 -->
-        <span id="{{ .URL | relURL }}" class="leancloud_visitors" data-flag-title="{{ .Title }}">
+        <span id="{{ .Permalink | relURL }}" class="leancloud_visitors" data-flag-title="{{ .Title }}">
           <span class="post-meta-item-text">文章阅读量 </span>
           <span class="leancloud-visitors-count">-</span>
           <p></p>
@@ -70,11 +70,11 @@
               el: '#vcomments' ,
               appId: '{{ .Site.Params.valine.appId }}',
               appKey: '{{ .Site.Params.valine.appKey }}',
-              notify: {{ .Site.Params.valine.notify }},
-              verify: {{ .Site.Params.valine.verify }},
+              notify: '{{ .Site.Params.valine.notify }}',
+              verify: '{{ .Site.Params.valine.verify }}',
               avatar:'{{ .Site.Params.valine.avatar }}',
               placeholder: '{{ .Site.Params.valine.placeholder }}',
-              visitor: {{ .Site.Params.valine.visitor }}
+              visitor: '{{ .Site.Params.valine.visitor }}'
           });
         </script>
       {{- end }}
